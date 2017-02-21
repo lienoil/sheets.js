@@ -29,7 +29,7 @@
 		<form action="" method="POST">
 
 			<div class="editor-module">
-				<div class="toolbar">
+				<!-- <div class="toolbar">
 					<div class="toolset">
 						<div class="toolbar-dropdown">
 							<button type="button" class="btn btn-link toolbar-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-header">&nbsp;</i>Text Format</button>
@@ -49,7 +49,6 @@
 							<button type="button" class="btn btn-link toolbar-item dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="icon-header">&nbsp;</i>Size Format</button>
 							<div class="toolbar-dropdown-menu">
 								<a role="option" class="toolbar-dropdown-option" data-command="sizeFormat" data-command-value="small">small</a>
-								<!-- <a role="option" class="toolbar-dropdown-option active" data-command="sizeFormat" data-command-value="normal">Normal</a> -->
 								<a role="option" class="toolbar-dropdown-option" data-command="sizeFormat" data-command-value="big">Big</a>
 							</div>
 						</div>
@@ -94,7 +93,7 @@
 						<button type="button" class="btn btn-link toolbar-item" data-command="justifyRight"><i class="icon-images"></i></button>
 					</div>
 
-				</div>
+				</div> -->
 
 				<?php
 				// Simulates data coming from database,
@@ -103,7 +102,7 @@
 				$content = isset($_POST['content']) ? $_POST['content'] : html_entity_decode("&lt;h1&gt;Joomla Guru Pro&lt;/h1&gt;&lt;pre&gt;{score:1,total:5}&lt;/pre&gt;");
 				// $content = html_entity_decode("<pre>{score:1,total:5}</pre>");
 				?>
-				<textarea id="editor" name="content" data-editor><?php echo $content ?></textarea>
+				<textarea id="editor" name="content" data-sheets-editor><?php echo $content ?></textarea>
 
 				<div class="toolbar">
 					<div class="toolset">
