@@ -1,0 +1,102 @@
+.sheet {
+	&-editor {
+		@import "typography";
+		@import "editor-content";
+	}
+}
+
+.sheet {
+	&-cover {
+		border: 1px solid $light-color;
+		border-radius: $border-radius;
+		color: $gray;
+		// box-shadow: 0 1px 1px $light-color;
+		width: 100%;
+		overflow: hidden;
+		* {
+			box-sizing: border-box;
+		}
+
+		@import "column";
+	}
+
+	&-cover-alt {
+		@extend .sheet-cover;
+		background-color: $light-color;
+		padding: 0.5rem;
+	}
+
+	&-header, &-footer {
+		display: block;
+		font-size: 8px;
+		&.text-right {
+			text-align: right;
+		}
+		&.text-center {
+			text-align: center;
+		}
+	}
+
+	&-editor {
+		-moz-tab-size: 8;
+			-o-tab-size: 8;
+				tab-size: 8;
+		position: relative;
+		width: 100%;
+		max-width: 100%;
+		display: block;
+		font-size: $font-size-base;
+		line-height: $line-height-base;
+
+		-moz-appearance: textfield-multiline;
+			-webkit-appearance: textarea;
+		overflow: auto;
+		resize: vertical;
+
+		box-sizing: border-box;
+
+		white-space: pre-wrap;
+		overflow-wrap: break-word;
+		word-wrap: break-word;
+
+		&:not(:first-child) {
+			border-top: 1px solid $light-color;
+			border-top-left-radius: 0;
+			border-top-right-radius: 0;
+		}
+
+		&:not(:last-child) {
+			border-bottom-left-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+
+		&-container {
+			&:not(:first-child) {
+				border-top: 1px solid $light-color;
+				// margin-top: -1px;
+			}
+			&:not(:last-child) {
+				border-left: 1px solid $light-color;
+			}
+		}
+
+		&.direction-rtl,
+		&.direction-rtl * {
+			direction: rtl;
+		}
+	}
+
+	&-mode {
+		&-html {
+			display: block;
+			padding: 4rem;
+			border-radius: 3px;
+			background: white;
+			min-height: 80px;
+
+			&:active, &:focus, & {
+				outline: none;
+			}
+		}
+	}
+}

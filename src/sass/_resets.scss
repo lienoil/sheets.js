@@ -1,0 +1,74 @@
+nav {
+	ul {
+		padding-left: 0;
+		list-style: none;
+	}
+	li.active, li.current-menu-item, li.current_page_item {
+        a {
+            color: $secondary-color;
+        }
+    }
+	a {
+		color: $primary-color;
+		&:hover, &:focus, &:active {
+			color: $secondary-color;
+		}
+	}
+}
+
+textarea {
+	max-width: 100%;
+	resize: vertical;
+	min-height: 250px;
+}
+
+iframe {
+	overflow: hidden !important;
+	border: none;
+	background-color: transparent;
+	max-width: 100%;
+}
+
+article a,
+section a {
+	color: $secondary-color;
+	&:hover, &:focus, &:active {
+		color: darken($secondary-color, 10%);
+	}
+	&[target="_blank"] {
+		&:after {
+			content: "\f14c";
+			display: inline-block;
+			vertical-align: top;
+			width: 10px;
+			height: 10px;
+			font-family: "FontAwesome", sans-serif;
+			font-size: 0.6rem;
+			margin-top: -10px;
+		}
+	}
+}
+
+blockquote {
+	clear: both;
+	color: $dark-color;
+	display: block;
+	padding-left: $padding-lg;
+	cite {
+		display: block;
+		text-align: right;
+		font-size: $font-size-base*0.9;
+	}
+}
+
+noscript {
+	background-color: transparentize($danger-color, 0.5);
+	display: block;
+	padding: $padding;
+	color: $white;
+}
+
+.error {
+	font-style: italic;
+	color: $warning-color;
+}

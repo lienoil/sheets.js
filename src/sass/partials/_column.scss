@@ -1,0 +1,58 @@
+.sheet-row,
+.row {
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+}
+
+$base-column-width: 8.3333333333%;
+
+.column,
+.columns {
+	display: inline-block;
+	float: left;
+	&.one, {
+		width: $base-column-width;
+	}
+	&.two {
+		width: $base-column-width*2;
+	}
+	&.three {
+		width: $base-column-width*3;
+	}
+	&.four {
+		width: $base-column-width*4;
+	}
+	&.five {
+		width: $base-column-width*5;
+	}
+	&.six {
+		width: $base-column-width*6;
+	}
+	&.seven {
+		width: $base-column-width*7;
+	}
+	&.eight {
+		width: $base-column-width*8;
+	}
+	&.nine {
+		width: $base-column-width*9;
+	}
+	&.ten {
+		width: $base-column-width*10;
+	}
+	&.eleven {
+		width: $base-column-width*11;
+	}
+	&.twelve {
+		width: $base-column-width*12;
+	}
+}
+
+@media screen and (max-width: 480px) {
+	.columns, .column {
+		width: 100% !important;
+	}
+}

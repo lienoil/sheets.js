@@ -1,0 +1,40 @@
+@import url("https://fonts.googleapis.com/css?family=Dancing+Script|Libre+Baskerville");
+.sheet-editor {
+  -moz-tab-size: 4;
+  tab-size: 4;
+  position: relative;
+  width: 100%;
+  display: block;
+}
+.sheet-editor p, .sheet-editor pre, .sheet-editor blockquote, .sheet-editor a {
+  font-family: "Purisa", "Lato", sans-serif;
+}
+.sheet-editor::after, .sheet-editor::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 60px;
+  height: 100%;
+  width: 1px;
+  background: rgba(255, 0, 0, 0.09);
+}
+.sheet-editor::before {
+  left: 64px;
+}
+.sheet-editor-lined h1, .sheet-editor-lined p, .sheet-editor-lined pre, .sheet-editor-lined li {
+  position: relative;
+}
+.sheet-editor-lined h1::after, .sheet-editor-lined p::after, .sheet-editor-lined pre::after, .sheet-editor-lined li::after {
+  content: "";
+  display: block;
+  width: 100vw;
+  height: 1px;
+  left: -10%;
+  position: absolute;
+  background: rgba(0, 0, 0, 0.05);
+  line-height: 2;
+}
+
+.sheet-mode-html {
+  padding: 4rem 4rem 4rem 75px;
+}

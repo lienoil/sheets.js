@@ -1,0 +1,51 @@
+@import "../variables";
+
+$heading-font-family: 		'Dancing Script', 'Dancing Script OT', 'Purisa', 'Script MT', serif;
+$secondary-font-family: 	'Purisa', 'Lato', sans-serif;
+
+.sheet-editor {
+	-moz-tab-size: 4;
+	-o-tab-size: 4;
+	tab-size: 4;
+	position: relative;
+	width: 100%;
+	display: block;
+
+	p, pre, blockquote, a {
+		font-family: $secondary-font-family;
+	}
+
+	&::after, &::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 60px;
+		height: 100%;
+		width: 1px;
+		background: rgba(255,0,0,0.09);
+	}
+
+	&::before {
+		left: 64px;
+	}
+
+	&-lined {
+		h1, p, pre, li {
+			position: relative;
+			&::after {
+				content: "";
+				display: block;
+				width: 100vw;
+				height: 1px;
+				left: -10%;
+				position: absolute;
+				background: $light-color;
+				line-height: 2;
+			}
+		}
+	}
+}
+
+.sheet-mode-html {
+	padding: 4rem 4rem 4rem 75px;
+}

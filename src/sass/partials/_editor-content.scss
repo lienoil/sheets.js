@@ -1,0 +1,65 @@
+* {
+	color: $gray;
+}
+pre {
+	border: 1px solid $light-color;
+	background: $light;
+	padding: $padding-sm;
+	border-radius: $border-radius;
+	font-family: monospace;
+}
+
+blockquote {
+	margin: 0;
+	margin-left: 2rem;
+	border-left: 5px solid $light-color;
+	background: transparentize($gray, 0.95);
+	padding: $padding-sm $padding-lg;
+	font-style: italic;
+}
+
+hr {
+	border: none;
+	border-top: 1px solid $light-color;
+}
+
+.sheet-row {
+	border: 1px solid $light-color;
+	padding-top: $padding;
+	padding-bottom: $padding;
+	min-height: 80px;
+}
+
+.btn-close {
+	border: none;
+}
+
+p.dropcap {
+	display: inline-block !important;
+	width: 100%;
+	&-base {
+		float: left;
+		font-size: $font-size-h1;
+		line-height: 3;
+		margin-right: 5px;
+		font-family: $heading-font-family;
+	}
+	&:first-child::first-letter {
+		@extend .dropcap-base;
+	}
+	&:first-letter {
+		@extend .dropcap-base;
+	}
+	&::first-letter {
+		@extend .dropcap-base;
+	}
+}
+
+.font {
+	&-big {
+		font-size: $font-size-xl;
+	}
+	&-small {
+		font-size: $font-size-sm;
+	}
+}

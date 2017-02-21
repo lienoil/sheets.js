@@ -1,0 +1,220 @@
+/**
+ * Sheets JS
+ *
+ * @param  {[type]} document [description]
+ * @param  {[type]} this     [description]
+ * @return {[type]}          [description]
+ */
+(function (document, window) {
+
+	'use strict';
+
+	if(document.contentEditable != undefined && document.execCommand != undefined) {
+		console.log("[Sheets.js]", "HTML5 Document Editing API Is Not Supported.");
+	}
+
+	var Sheets = {
+		init: function ($textarea) {
+			var wrapper = document.createElement('div');
+			wrapper.setAttribute('class', 'sheet-cover');
+
+			var editor = this.makeEditor();
+			wrapper.appendChild(editor);
+
+			this.editor = wrapper;
+			this.$textarea = $textarea;
+			this.setContent( $textarea.value );
+
+			this.setParent();
+			this.getToolsFrom(this.$parent);
+			this.tools();
+
+			return this;
+		},
+		setParent: function () {
+			var $parent = this.$textarea.closest(".editor-module");
+			this.$parent = $parent;
+		},
+		makeEditor: function () {
+			var editor = document.createElement('div');
+			editor.setAttribute('contenteditable', true);
+			editor.setAttribute('class', 'sheet-editor sheet-mode-html');
+			this.innerEditor = editor;
+
+			var container = document.createElement('div');
+			container.setAttribute('class', 'sheet-editor-container');
+
+			var btn = makeButton("", "btn-close toolbar-item", "i", "icon-close");
+			btn.setAttribute("data-command", "removeSection");
+			var toolset = document.createElement("div");
+			toolset.setAttribute("class", "sheet-header text-right");
+			toolset.appendChild(btn);
+
+			container.appendChild(toolset);
+			container.appendChild(editor);
+
+			// this.refresh();
+
+			return editor;
+		},
+		getEditor: function () {
+			return this.editor;
+		},
+		append: function (editor, parent) {
+			parent.insertBefore(editor, this.$textarea.nextSibling);
+			// parent.appendChild(editor);
+			return this;
+		},
+		getToolsFrom: function (parent) {
+			return parent.querySelectorAll('[data-command]')
+		},
+		tools: function (tools) {
+			var _ = this;
+			tools = tools ? tools : _.getToolsFrom(_.$parent);
+
+			// /Put document.addEvent outside loop
+			for (var i = tools.length - 1; i >= 0; i--) {
+				var tool = tools[i];
+
+				// tool.onmousedown = function (ev) {
+				//  *
+				//   * Prevent to have the
+				//   * non-button tags (e.g. span) still
+				//   * perform the click event
+
+				//  ev.preventDefault();
+				// }
+
+				var command = tool.getAttribute('data-command');
+				var commandValue = tool.getAttribute('data-command-value');
+
+				if ( commandValue == "undefined" ) {
+					commandValue = null;
+				}
+
+				tool.addEventListener("click", function (e) {
+					console.log(e.target);
+					switch (command) {
+						case "rtl":
+							_.innerEditor.classList.toggle('direction-rtl');
+							break;
+
+						case "pre":
+							document.execCommand(command, false, commandValue);
+							break;
+
+						case 'addSection':
+							var editor = _.makeEditor();
+							_.editor.appendChild(editor);
+							break;
+
+						case 'removeSection':
+							// var editor = _.makeEditor();
+							// _.editor.appendChild(editor);
+							alert("Yey! this simulates the section being removed");
+							break;
+
+						case 'addRow':
+							var row = document.createElement("div");
+							var btn = makeButton("Remove", "btn-close toolbar-item", "i", "icon-undo");
+							row.setAttribute("class", "sheet-row row");
+							row.appendChild(btn);
+							if (window.getSelection) {
+								var sel = window.getSelection();
+								if (sel.getRangeAt && sel.rangeCount) {
+									var range = sel.getRangeAt(0);
+									range.deleteContents();
+									range.insertNode( row );
+								}
+							} else {
+								_.innerEditor.appendChild(row);
+							}
+							break;
+
+						default:
+							document.execCommand(command, false, commandValue);
+							break;
+					}
+
+				});
+
+			}
+			// _.refresh();
+		},
+		makeTabbable: function () {
+			this.editor.onkeydown = function (e) {
+				// TAB key
+				if ( 9 === e.keyCode ) {
+					document.execCommand('insertHTML', false, "&#09;");
+					e.preventDefault();
+				}
+			}
+		},
+		listen: function (element, events, fn) {
+			events.split(' ').forEach( e => element.addEventListener(e, fn, false));
+		},
+		copyContentTo: function ($el) {
+			// $el.value = this.innerEditor.innerHTML;
+			// $el.innerHTML = this.innerEditor.innerHTML;
+			var innerEditors = this.editor.querySelectorAll('[data-contenteditable]');
+			var content = "";
+			innerEditors.forEach( e => function (event) {
+				content += innerEditors.innerHTML;
+			});
+			$el.innerHTML = this.innerEditor.innerHTML;
+			// console.log($el.innerHTML);
+		},
+		setContent: function (content) {
+			this.innerEditor.innerHTML = content;
+			this.content = content;
+		},
+		getContent: function () {
+			return this.content;
+		},
+		refresh: function () {
+			this.getToolsFrom(this.$parent);
+		},
+	};
+
+	var textareas = document.querySelectorAll('[data-editor]');
+
+	document.addEventListener("DOMContentLoaded", function () {
+		for (var i = textareas.length - 1; i >= 0; i--) {
+			var $textarea = textareas[i];
+			var sheets = Object.create(Sheets);
+
+			sheets.init($textarea);
+			var $editor = sheets.getEditor();
+
+			$textarea.style.display = "none";
+
+			sheets.append($editor, sheets.$parent);
+			sheets.makeTabbable();
+
+			sheets.listen(sheets.$parent, 'keypress mouseup', function () {
+				sheets.copyContentTo($textarea);
+			});
+
+			/**
+			 * Just to make sure, also listen to when the
+			 * form is being submitted
+			 */
+			sheets.listen(sheets.$parent.closest('form'), 'submit', function () {
+				sheets.copyContentTo($textarea);
+			});
+		}
+	});
+
+	// Private Methods
+	function makeButton(text, btnClass, icon, iconClass) {
+		btnClass = btnClass ? btnClass : 'btn-tool';
+		icon = icon ? '<'+icon+' class="'+iconClass+'"></'+icon+'>' : '';
+
+		var btn = document.createElement("button");
+		btn.innerHTML += icon;
+		btn.innerHTML += text;
+		btn.setAttribute("class", btnClass);
+		btn.setAttribute("type", "button");
+		return btn;
+	}
+})(document, window);

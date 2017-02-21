@@ -1,0 +1,18 @@
+@import "../variables";
+
+.sheet-editor {
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+    position: relative;
+    width: 100%;
+    display: block;
+    background: #fffff3;
+    color: #000;
+}
+
+.sheet-mode-html {
+    padding: 4rem 4rem 4rem 75px;
+    background: url(../img/texture.parchment.png) repeat;
+    color: #000;
+}

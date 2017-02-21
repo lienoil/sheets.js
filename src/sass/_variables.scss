@@ -1,0 +1,125 @@
+// Color
+$primary: 				#147ec7;
+$secondary: 			#f07b47;
+$success: 				#5cb85c;
+$info: 				#5bc0de;
+$warning: 				#f0ad4e;
+$danger: 				#ed5959;
+
+$primary-color: 			$primary;
+$secondary-color: 		$secondary;
+
+$inverse: 				invert($primary);
+$inverse-color: 			$inverse;
+
+$dark: 				#5c5858;
+$dark-color: 			$dark;
+
+$light: 				rgba(0,0,0,0.05);
+$light-color: 			$light;
+
+$success-color:			$success;
+$info-color:				$info;
+$warning-color:			$warning;
+$danger-color:			$danger;
+
+$gray: 				#888888;
+$gray-light: 			lighten($gray, 5%);
+$gray-dark: 			darken($gray, 50%);
+
+$body-bg: 				#ffffff;
+
+$white: 				#ffffff;
+$black: 				#000000;
+
+// Font
+$font-size-root: 			18px;
+$font-size-base: 			1rem; //4vh;
+$font-size-sm:   		0.8rem;
+$font-size-xl: 	  		3rem;
+
+$font-size-h1: 			2.5rem;
+$font-size-h2: 			2rem;
+$font-size-h3: 			1.75rem;
+$font-size-h4: 			1.25rem;
+$font-size-h5: 			1rem;
+$font-size-h6: 			0.9rem;
+
+$h1:          	2.5rem;
+$h2:         	2rem;
+$h3:         	1.75rem;
+$h4:         	1.25rem;
+$h5:         	1rem;
+$h6:          	0.9rem;
+
+$line-height-normal:		1;
+$line-height-base: 		1.8;
+
+@import url('https://fonts.googleapis.com/css?family=Dancing+Script|Libre+Baskerville');
+$primary-font-family: 		"Lato", "Roboto", "Open Sans", "Helvetica Nueue", sans-serif;
+$secondary-font-family: 	'Raleway', 'Lato Bold', 'Lato', serif;
+$heading-font-family: 		'Dancing Script', 'Dancing Script OT', 'Purisa', 'Script MT', serif;
+$subheading-font-family: 	$secondary-font-family;
+
+$font-weight-hairline: 		100;
+$font-weight-thin: 		200;
+$font-weight-light: 		300;
+$font-weight-bold: 		500;
+$font-weight-heading: 		600;
+$font-weight-bolder: 		700;
+$font-weight-heavy: 		800;
+$font-weight-black: 		900;
+
+$kerning-wide: 			4px;
+$kerning-wider: 			6px;
+$kerning-widest: 			8px;
+$kerning-narrow: 			3px;
+$kerning-narrower:  		2px;
+$kerning-base: 			1px;
+
+$letter-spacing: 			$kerning-base;
+
+// Margin
+$margin: 				0.833333rem;
+$margin-xs: 			$margin/4;
+$margin-sm: 			$margin/2;
+$margin-lg: 			$margin*2;
+$margin-xl: 			$margin*4;
+
+// Padding
+$padding: 	 			0.833333rem;
+$padding-xs: 			$padding/4;
+$padding-sm:			$padding/2;
+$padding-lg: 			$padding*2;
+$padding-xl: 			$padding*4;
+
+// Transitions
+$transition-default: 		all 0.3s ease-in-out;
+
+// Body
+$is_body-overflow-x-hidden: true;
+
+// Bootstrap Override
+$brand-primary: 			$primary !default;
+$brand-success: 			$success !default;
+$brand-info: 			$info !default;
+$brand-warning: 			$warning !default;
+$brand-danger: 			$danger !default;
+
+$border-radius:          	3px !default;
+$border-radius-base: 		3px !default;
+$border-radius-large:   	5px !default;
+$border-radius-lg:       	5px !default;
+$border-radius-small:  		1px !default;
+$border-radius-sm:       	1px !default;
+
+$grid-gutter-width: 		30px !default;
+
+$container-tablet: 		(720px + $grid-gutter-width) !default;
+$container-sm:	 		$container-tablet !default;
+
+$container-desktop: 		(940px + $grid-gutter-width) !default;
+$container-md: 			$container-desktop !default;
+
+$container-large-desktop:	(1340px + $grid-gutter-width) !default;
+$container-lg: 			$container-large-desktop !default;

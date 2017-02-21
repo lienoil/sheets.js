@@ -1,0 +1,121 @@
+/**
+ * Sheets JS
+ *
+ * @param  {[type]} document [description]
+ * @return {[type]}          [description]
+ */
+(function (document, window) {
+
+	'use strict';
+
+	if( document.contentEditable != undefined && document.execCommand != undefined ) {
+		console.log("[Sheets.js]", "HTML5 Document Editing API Is Not Supported.");
+	}
+
+	// Constructor
+	var Sheets = function () {
+		this.parent = null;
+		this.editor = null;
+		this.innerEditor = null;
+		this.content = null;
+		this.jsonContent = null;
+
+		// Define defaults
+		var defaults = {
+			target: '[data-editor]',
+			parentClass: 'sheet-cover',
+			editorClass: '',
+			innerEditorClass: 'sheet-editor sheet-html-mode',
+
+			parentTag: 'div',
+			editorTag: 'div',
+			// ...
+		}
+
+		// Merge defaults
+		if ( arguments[0] && typeof arguments[0] === "object" ) {
+			this.options = extendDefaults(defaults, arguments[0]);
+		}
+
+	};
+
+	// Public Methods
+	Sheets.prototype.init = function () {
+		build.call(this);
+	}
+
+	// Private Methods / Functions
+
+	function build() {
+		var options = this.options;
+		var documentFragment;
+
+		// create a documentFragment to build with.
+		documentFragment = document.createDocumentFragment();
+
+		// create the sheet cover (container)
+		this.parent = document.createElement(options.parentTag);
+		this.setAttribute('class', options.parentClass);
+
+		// create the sheet editor (wysiwyg editor)
+		this.innerEditor = makeInnerEditor.call(this);
+
+		// Put the editor in the parent
+		this.parent.appendChild(this.innerEditor);
+
+		// Set the main editor (parent + innerEditor)
+		this.editor = this.parent;
+	}
+
+	function makeInnerEditor() {
+		var options = this.options;
+		var innerEditor = document.createElement(options.editorTag);
+		innerEditor.setAttribute('contenteditable', true);
+		innerEditor.setAttribute('class', options.editorClass);
+
+		return innerEditor;
+	}
+
+	function extendDefaults(source, properties) {
+		var property;
+		for (property in properties) {
+			if (properties.hasOwnProperty(property)) {
+				source[property] - properties[property];
+			}
+		}
+		return source;
+	}
+	// --------
+	var textareas = document.querySelectorAll('[data-editor]');
+
+	window.addEventListener("load", function () {
+		for (var i = textareas.length - 1; i >= 0; i--) {
+			var sheets = Object.create(Sheets);
+
+			sheets.init();
+			var $editor = sheets.getEditor();
+
+			var $textarea = textareas[i];
+			$textarea.style.display = "none";
+
+			var $parent = $textarea.closest(".editor-module");
+
+			sheets.append($editor, $parent);
+			sheets.makeTabbable();
+			sheets.tools( sheets.getToolsFrom($parent) );
+
+			sheets.listen($parent, 'keypress mouseup', function () {
+				sheets.copyContentTo($textarea);
+			});
+
+			/**
+			 * Just to make sure, also listen to when the
+			 * form is being submitted
+			 */
+			sheets.listen($parent.closest('form'), 'submit', function () {
+				sheets.copyContentTo($textarea);
+			});
+		}
+	});
+
+}(document, window));

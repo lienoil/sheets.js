@@ -1,0 +1,106 @@
+.toolbar {
+	@import "typography";
+}
+
+.tool {
+	&bar {
+		display: block;
+	}
+
+	&set {
+		margin: 0 1rem;
+		display: inline-block;
+
+		&.text-right {
+			display: block;
+			text-align: right;
+		}
+	}
+
+	&bar-item {
+		border: none;
+		padding: 10px;
+		background: transparent;
+		cursor: pointer;
+		@include haf( $primary-color );
+	}
+
+	&bar-dropdown {
+		position: relative;
+		text-align: right;
+		display: inline-block;
+		&:focus, &:active {
+			.toolbar-dropdown-menu {
+				display: block;
+			}
+		}
+		.dropdown-toggle {
+			padding-right: 15px;
+			:after {
+				content: "\e933";
+				font-family: 'wysiwyg-icons';
+				position: absolute;
+				right: 0;
+				@include center('vertical');
+			}
+		}
+		&-menu {
+			position: absolute;
+			top: 100%;
+			right: auto;
+			left: 0;
+			// z-index: $zindex-dropdown;
+			display: none; // none by default, but block on "open" of the menu
+			float: left;
+			min-width: 200px;
+			width: auto;
+			padding: $padding-sm 0;
+			margin: $margin-xs 0; // override default ul
+			font-size: $font-size-base;
+			text-align: left; // Ensures proper alignment if parent has it changed (e.g., modal footer)
+			list-style: none;
+			background-color: $white;
+			background-clip: padding-box;
+			border: 1px solid $light-color;
+			z-index: 99999;
+			box-shadow: 0 0 4px $light-color;
+
+			&.open {
+				display: block;
+			}
+			.dropdown-row {
+				display: -webkit-flex;
+				display: -moz-flex;
+				display: -ms-flex;
+				display: -o-flex;
+				display: flex;
+				width: 100%;
+				.toolbar-dropdown-option {
+					width: 100%;
+				}
+			}
+		}
+
+		&-option {
+			display: block;
+			cursor: pointer;
+			padding: $padding-sm $padding;
+			white-space: nowrap;
+
+			@include haf($primary-color, $light-color);
+		}
+	}
+}
+
+@each $heading in ('h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'pre') {
+	[data-command-value="#{$heading}"] {
+		@extend .#{$heading};
+	}
+}
+
+[data-command-value="big"] {
+	font-size: $font-size-xl;
+}
+[data-command-value="small"] {
+	font-size: $font-size-sm;
+}
